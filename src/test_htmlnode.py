@@ -9,6 +9,11 @@ class TestHTMLNode(unittest.TestCase):
         string_repr = """<a href="https://example.com">Hello, World!</a>"""
         self.assertEqual(node1.to_html(), string_repr)
 
+    def test_hello_world_without_attr(self):
+        node1 = HTMLNode("p", "Hello, World!")
+        string_repr = "<p>Hello, World!</p>"
+        self.assertEqual(node1.to_html(), string_repr)
+
     def test_leaf_hello_world_with_example_dot_org_with_link_tag(self):
         leafnode1 = LeafNode("a", "Hello, World!", {"href": "https://example.com"})
         string_repr = """<a href="https://example.com">Hello, World!</a>"""
@@ -20,6 +25,4 @@ class TestHTMLNode(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-
 
