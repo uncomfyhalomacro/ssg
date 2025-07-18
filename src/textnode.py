@@ -19,3 +19,5 @@ class TextNode:
             return (t1.text == t2.text) and (t1.text_type == t2.text_type) and (t1.url == t2.url)
         raise TypeError("Error: one or two passed parameters are not of type `TextNode`.")
 
+    def __repr__(self):
+        return f"TextNode({self.text}, {self.text_type}, {self.url})"
