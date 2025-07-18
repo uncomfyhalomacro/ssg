@@ -14,7 +14,7 @@ class ParentNode:
         html_attr = self.props_to_html()
         rendered_children = ""
         for child in self.children:
-            if isinstance(child, LeafNode):
+            if isinstance(child, LeafNode) or isinstance(child, ParentNode):
                 rendered_children += child.to_html()
             else:
                 raise TypeError("Error: a child in children is not type `LeafNode`.")
