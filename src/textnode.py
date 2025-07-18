@@ -14,9 +14,9 @@ class TextNode:
         self.text_type = text_type
         self.url = url
 
-    def __eq__(self, t1, t2):
-        if isinstance(t1, TextNode) and isinstance(t2, TextNode):
-            return (t1.text == t2.text) and (t1.text_type == t2.text_type) and (t1.url == t2.url)
+    def __eq__(self, other):
+        if isinstance(self, TextNode) and isinstance(other, TextNode):
+            return (self.text == other.text) and (self.text_type == other.text_type) and (self.url == other.url)
         raise TypeError("Error: one or two passed parameters are not of type `TextNode`.")
 
     def __repr__(self):
