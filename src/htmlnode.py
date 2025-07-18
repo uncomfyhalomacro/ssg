@@ -9,8 +9,10 @@ class HTMLNode:
     def to_html(self):
         raise NotImplementedError("Error: `to_html` method was not implemented.")
 
-    def node_to_html(self):
+    def to_html(self):
         html_attr = self.props_to_html()
+        if self.tag is None:
+            return f"{self.value}"
         inline_html = f"<{self.tag} {html_attr}>{self.value}</{self.tag}>"
         return inline_html
 
