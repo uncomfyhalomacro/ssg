@@ -17,7 +17,7 @@ class ParentNode:
             if isinstance(child, LeafNode) or isinstance(child, ParentNode):
                 rendered_children += child.to_html()
             else:
-                raise TypeError("Error: a child in children is not type `LeafNode`.")
+                raise TypeError("Error: a child in children is not type `LeafNode` or `ParentNode`.")
         inline_html = f"<{self.tag} {html_attr}>{rendered_children}</{self.tag}>" if html_attr != "" else f"<{self.tag}>{rendered_children}</{self.tag}>"
         return inline_html
 
