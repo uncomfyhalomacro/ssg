@@ -1,0 +1,33 @@
+
+class HTMLNode:
+    def __init__(self, tag=None, value=None, children=None, props=None):
+        self.tag = tag
+        self.value = value
+        self.children = children
+        self.props = props
+
+    def to_html(self):
+        raise NotImplementedError("Error: `to_html` method was not implemented.")
+
+    def node_to_html(self):
+        html_attr = self.props_to_html()
+        inline_html = f"<{self.tag} {html_attr}>{self.value}</{self.tag}>"
+        return inline_html
+
+    def props_to_html(self):
+        html_attr = []
+        for (attribute, value) in self.props.items():
+            html_attr.append(f"{attribute}=\"{value}\"")
+        return " ".join(html_attr)
+
+    def __repr__(self):
+        return f"""
+HTMLNode(
+    tag: {self.tag}
+    value: {self.value}
+    children: {self.children}
+    props: {self.props}
+)
+"""
+
+
