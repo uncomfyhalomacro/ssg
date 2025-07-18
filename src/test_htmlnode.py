@@ -3,6 +3,7 @@ import unittest
 from htmlnode import HTMLNode
 from leafnode import LeafNode
 
+
 class TestHTMLNode(unittest.TestCase):
     def test_hello_world_with_example_dot_org(self):
         node1 = HTMLNode("a", "Hello, World!", None, {"href": "https://example.com"})
@@ -23,6 +24,6 @@ class TestHTMLNode(unittest.TestCase):
         leafnode1 = LeafNode(None, "Hello, World!", {"href": "https://example.com"})
         self.assertEqual(leafnode1.to_html(), "Hello, World!")
 
+
 if __name__ == "__main__":
     unittest.main()
-
