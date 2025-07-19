@@ -1,6 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType
+from textnode import ALL_TEXTYPES_LIST
 
 
 class TestTextNode(unittest.TestCase):
@@ -182,6 +183,11 @@ class TestTextNode(unittest.TestCase):
             "Error: no delimiter passed. You can pass the following: **, `, _.",
         )
 
+    def test_md_to_nodes_with_every_text_type_but_every_return_is_one_plain_node(self):
+        node = TextNode("Hello, World!")
+        for delimiter in ALL_TEXTYPES_LIST:
+            self.assertEqual([node], node.md_to_nodes(delimiter))
+
     def test_md_to_new_nodes_nested(self):  # TODO: NOT IMPLEMENTED YET
         node = TextNode("This is **_text_** with a `code block` word", TextType.PLAIN)
         with self.assertRaises(Exception):
@@ -225,6 +231,43 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual([], matches)
         matches = node.extract_markdown_images()
         self.assertEqual(assert_matches, matches)
+
+    def test_split_images(self):
+        node = TextNode(
+            "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)",
+            TextType.PLAIN,
+        )
+        new_nodes = node.md_to_nodes(TextType.IMAGE)
+        self.assertEqual(
+            [
+                TextNode("This is text with an ", TextType.PLAIN),
+                TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png"),
+                TextNode(" and another ", TextType.PLAIN),
+                TextNode(
+                    "second image", TextType.IMAGE, "https://i.imgur.com/3elNhQu.png"
+                ),
+            ],
+            new_nodes,
+        )
+
+    def test_split_images_but_no_image_to_capture(self):
+        node = TextNode(
+            "This is text with an [image](https://i.imgur.com/zjjcJKZ.png) and another [second image](https://i.imgur.com/3elNhQu.png)",
+            TextType.PLAIN,
+        )
+        new_nodes = node.md_to_nodes(TextType.IMAGE)
+        self.assertNotEqual(
+            [
+                TextNode("This is text with an ", TextType.PLAIN),
+                TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png"),
+                TextNode(" and another ", TextType.PLAIN),
+                TextNode(
+                    "second image", TextType.IMAGE, "https://i.imgur.com/3elNhQu.png"
+                ),
+            ],
+            new_nodes,
+        )
+        self.assertEqual([node], new_nodes)
 
 
 if __name__ == "__main__":
