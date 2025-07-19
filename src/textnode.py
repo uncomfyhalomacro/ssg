@@ -1,3 +1,4 @@
+import re
 from enum import Enum
 
 from htmlnode import HTMLNode
@@ -9,14 +10,16 @@ class TextType(Enum):
     BOLD = "**"
     ITALIC = "_"
     INLINE_CODE = "`"
-    LINK = 4  # TODO: We will turn this into a regex
-    IMAGE = 5  # TODO: Same as this one
+    IMAGE = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    LINK = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
 
 
 ALL_TEXTYPES_LIST = [
     TextType.BOLD,
     TextType.ITALIC,
     TextType.INLINE_CODE,
+    TextType.LINK,
+    TextType.IMAGE,
 ]  # NOTE: For now only these three
 
 
@@ -46,7 +49,15 @@ class TextNode:
                 props["src"] = self.url
             return LeafNode("img", "", props)
 
-    def md_to_nodes(self, delimiter=TextType.PLAIN):
+    def extract_markdown_links(self):
+        return re.findall(TextType.LINK.value, self.text)
+
+    def extract_markdown_images(self):
+        return re.findall(TextType.IMAGE.value, self.text)
+
+    def md_to_nodes(
+        self, delimiter=TextType.PLAIN
+    ):  # TODO: Create util functions to process self.extract_markdown_images and self.extract_markdown_links.
         if self.text_type != TextType.PLAIN:
             return [self]
         if isinstance(delimiter, str):

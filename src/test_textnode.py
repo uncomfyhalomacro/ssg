@@ -187,6 +187,45 @@ class TestTextNode(unittest.TestCase):
         with self.assertRaises(Exception):
             new_nodes = node.md_to_nodes()
 
+    def test_extracted_markdown_links(self):
+        node = TextNode(
+            "This is a [Google Form](https://forms.google.com). This is a [Google Sheet](https://sheets.google.com)"
+        )
+        matches = node.extract_markdown_links()
+        assert_matches = [
+            ("Google Form", "https://forms.google.com"),
+            ("Google Sheet", "https://sheets.google.com"),
+        ]
+        self.assertEqual(matches, assert_matches)
+
+    def test_extracted_markdown_links_but_not_image(self):
+        node = TextNode(
+            "This is an [image](https://example.com/image.svg) and [another image](https://image.com/image.svg)."
+        )
+        matches = node.extract_markdown_links()
+        assert_matches = [
+            ("image", "https://example.com/image.svg"),
+            ("another image", "https://image.com/image.svg"),
+        ]
+        self.assertEqual(matches, assert_matches)
+        matches = node.extract_markdown_images()
+        self.assertNotEqual(assert_matches, matches)
+        self.assertEqual([], matches)
+
+    def test_extracted_markdown_images(self):
+        node = TextNode(
+            "This is an ![image](https://example.com/image.svg) and ![another image](https://image.com/image.svg)."
+        )
+        matches = node.extract_markdown_links()
+        assert_matches = [
+            ("image", "https://example.com/image.svg"),
+            ("another image", "https://image.com/image.svg"),
+        ]
+        self.assertNotEqual(matches, assert_matches)
+        self.assertEqual([], matches)
+        matches = node.extract_markdown_images()
+        self.assertEqual(assert_matches, matches)
+
 
 if __name__ == "__main__":
     unittest.main()
