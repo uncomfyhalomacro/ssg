@@ -126,6 +126,38 @@ class TextNode:
                 )
         return new_nodes
 
+    def text_to_textnodes(self):
+        new_nodes = []
+        all_indices_tuple = []
+        for delimiter in ALL_TEXTYPES_LIST[:3]:
+            if delimiter.value in self.text:
+                all_indices_tuple.append((self.text.index(delimiter.value), delimiter))
+        for delimiter in ALL_TEXTYPES_LIST[3:]:
+            for a_match in re.finditer(delimiter.value, self.text):
+                all_indices_tuple.append((a_match.start(), delimiter))
+        all_indices_tuple = sorted(all_indices_tuple, key=lambda item: item[0])
+        for idx, text_type in all_indices_tuple:
+            # print(idx, text_type)
+            nodes = self.md_to_nodes(text_type)
+            for node in nodes:
+                # print("TEST NODE: ", node)
+                if all(
+                    [d.value not in node.text for d in ALL_TEXTYPES_LIST[:3]]
+                ) and all(
+                    [
+                        len(re.findall(d.value, node.text)) == 0
+                        for d in ALL_TEXTYPES_LIST[3:]
+                    ]
+                ):
+                    if node not in new_nodes:
+                        new_nodes.append(node)
+                else:
+                    temp_nodes = node.text_to_textnodes()
+                    for tnode in temp_nodes:
+                        if tnode not in new_nodes:
+                            new_nodes.append(tnode)
+        return new_nodes
+
     def __eq__(self, other):
         if isinstance(self, TextNode) and isinstance(other, TextNode):
             return (
@@ -138,4 +170,4 @@ class TextNode:
         )
 
     def __repr__(self):
-        return f"TextNode({self.text}, {self.text_type}, {self.url})"
+        return f'TextNode("{self.text}", {self.text_type}, {self.url})'
