@@ -155,6 +155,8 @@ class TextNode:
                     for tnode in temp_nodes:
                         if tnode not in new_nodes:
                             new_nodes.append(tnode)
+        if new_nodes == []:
+            return [self]
         return new_nodes
 
     def __eq__(self, other):
