@@ -1,6 +1,6 @@
 import unittest
 
-from blocks import markdown_to_blocks
+from src.markdown.blocks import markdown_to_blocks
 
 
 class BlockTest(unittest.TestCase):
@@ -23,6 +23,7 @@ This is the same paragraph on a new line
                 "- This is a list\n- with items",
             ],
         )
+
 
 if __name__ == "__main__":
     unittest.main()

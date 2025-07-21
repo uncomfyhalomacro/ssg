@@ -1,7 +1,8 @@
-from leafnode import LeafNode
+from src.leafnode import LeafNode
+from src.htmlnode import HTMLNode
 
 
-class ParentNode:
+class ParentNode(HTMLNode):
     def __init__(self, tag=None, children=None, props=None):
         self.tag = tag
         if self.tag is None:

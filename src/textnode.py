@@ -1,8 +1,7 @@
 import re
 from enum import Enum
 
-from htmlnode import HTMLNode
-from leafnode import LeafNode
+from src.leafnode import LeafNode
 
 
 class TextType(Enum):

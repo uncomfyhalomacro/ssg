@@ -1,18 +1,20 @@
 from enum import Enum
 import re
 
+
 class BlockType(Enum):
-    PARAGRAPH=0
-    HEADING1=1
-    HEADING2=2
-    HEADING3=3
-    HEADING4=4
-    HEADING5=5
-    HEADING6=6
-    QUOTE=7
-    UNORDERED_LIST=8
-    ORDERED_LIST=9
-    CODE_BLOCK=10
+    PARAGRAPH = 0
+    HEADING1 = 1
+    HEADING2 = 2
+    HEADING3 = 3
+    HEADING4 = 4
+    HEADING5 = 5
+    HEADING6 = 6
+    QUOTE = 7
+    UNORDERED_LIST = 8
+    ORDERED_LIST = 9
+    CODE_BLOCK = 10
+
 
 def block_to_block_type(block):
     if block.startswith("#" * 1 + " "):

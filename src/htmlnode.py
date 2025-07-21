@@ -6,15 +6,9 @@ class HTMLNode:
         self.props = props
 
     def to_html(self):
-        html_attr = self.props_to_html()
-        if self.tag is None:
-            return f"{self.value}"
-        inline_html = (
-            f"<{self.tag} {html_attr}>{self.value}</{self.tag}>"
-            if html_attr != ""
-            else f"<{self.tag}>{self.value}</{self.tag}>"
+        raise NotImplementedError(
+            "Error: function is not implemented for this type. Are you using its child classes `LeafNode` and `ParentNode`?"
         )
-        return inline_html
 
     def props_to_html(self):
         html_attr = []

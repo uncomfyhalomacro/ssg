@@ -6,12 +6,12 @@ from leafnode import LeafNode
 
 class TestHTMLNode(unittest.TestCase):
     def test_hello_world_with_example_dot_org(self):
-        node1 = HTMLNode("a", "Hello, World!", None, {"href": "https://example.com"})
+        node1 = LeafNode("a", "Hello, World!", {"href": "https://example.com"})
         string_repr = """<a href="https://example.com">Hello, World!</a>"""
         self.assertEqual(node1.to_html(), string_repr)
 
     def test_hello_world_without_attr(self):
-        node1 = HTMLNode("p", "Hello, World!")
+        node1 = LeafNode("p", "Hello, World!")
         string_repr = "<p>Hello, World!</p>"
         self.assertEqual(node1.to_html(), string_repr)
 
