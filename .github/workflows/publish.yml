@@ -17,7 +17,7 @@ jobs:
       run: |
         pushd public
         touch .nojekyll
-        # echo "uncomfyhalomacro.pl" >> CNAME
+        echo "uncomfyhalomacro.pl" >> CNAME
         git init
         git branch -m gh-pages
         git config --global user.email "contact@uncomfyhalomacro.pl"
