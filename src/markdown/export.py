@@ -90,7 +90,8 @@ def block_heading_to_html_node(block, heading_type):
 def block_quote_to_html_node(block):
     parent_tag = "blockquote"
     splits = block.split("\n")
-    removed_prefixes = [sp.removeprefix("> ") for sp in splits]
+    removed_prefixes = [sp.removeprefix(">").lstrip() for sp in splits]
+    removed_prefixes = [s+"<br />" if s.strip() == "" else s for s in removed_prefixes]
     new_block = "\n".join(removed_prefixes)
     tn = TextNode(new_block)
     tn_nodes = tn.text_to_textnodes()
