@@ -73,5 +73,5 @@ def export_content_to_public(content_root_path=content_root_path, basepath=None)
         if current.endswith("index.md") and os.path.isfile(current):
             export_from_path_of_md_to_html(current, basepath=basepath)
         if os.path.isdir(current):
-            export_content_to_public(current)
+            export_content_to_public(current, basepath=basepath)
 
