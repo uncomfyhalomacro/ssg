@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 from shutil import copyfile
 from src.utils import export_content_to_public
@@ -34,7 +35,11 @@ def copy_static():
 
 def main():
     copy_static()
-    export_content_to_public()
+    args = sys.argv
+    basepath = None
+    if len(args) > 1:
+        basepath=args[1]
+    export_content_to_public(basepath=basepath)
 
 if __name__ == "__main__":
     main()

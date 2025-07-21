@@ -22,7 +22,7 @@ def markdown_file_to_html(md):
     return markdown_to_html_node(md).to_html()
 
 
-def transform_markdown_to_html_with_template(markdown_file):
+def transform_markdown_to_html_with_template(markdown_file, basepath=None):
     if not os.path.exists(markdown_file):
         raise FileExistsError(
             f"Error: unable to look for file at path `{markdown_file}`"
@@ -45,10 +45,14 @@ def transform_markdown_to_html_with_template(markdown_file):
             templ = template.read()
             templ = templ.replace("{{ Title }}", title)
             templ = templ.replace("{{ Content }}", content)
+            if basepath is None:
+                return templ
+            templ = templ.replace("""href="/""", f"""href="{basepath}""")
+            templ = templ.replace("""src="/""", f"""src="{basepath}""")
             return templ
     raise Exception("Error: unknown error occured. markdown file not transformed to html")
 
-def export_from_path_of_md_to_html(markdown_file):
+def export_from_path_of_md_to_html(markdown_file, basepath=None):
     dst = ""
     parent_dir = os.path.dirname(markdown_file).removeprefix(content_root_path).removeprefix("/")
     if parent_dir == "" or parent_dir == "content":
@@ -58,16 +62,16 @@ def export_from_path_of_md_to_html(markdown_file):
         if not os.path.exists(new_parent):
             os.makedirs(new_parent, exist_ok=True)
         dst = os.path.realpath(os.path.join(new_parent, "index.html"))
-    html = transform_markdown_to_html_with_template(markdown_file)
+    html = transform_markdown_to_html_with_template(markdown_file, basepath=basepath)
     with open(dst, "w") as f:
         f.write(html)
 
-def export_content_to_public(content_root_path=content_root_path):
+def export_content_to_public(content_root_path=content_root_path, basepath=None):
     list_contents = os.listdir(content_root_path)
     for content in list_contents:
         current = os.path.join(content_root_path, content)
         if current.endswith("index.md") and os.path.isfile(current):
-            export_from_path_of_md_to_html(current)
+            export_from_path_of_md_to_html(current, basepath=basepath)
         if os.path.isdir(current):
             export_content_to_public(current)
 
