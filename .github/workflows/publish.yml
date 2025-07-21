@@ -1,0 +1,31 @@
+name: Publish
+permissions: write-all
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Generate static site
+      run: |
+        python3 -m src
+    - name: Publish static site
+      run: |
+        pushd public
+        touch .nojekyll
+        echo "uncomfyhalomacro.pl" >> CNAME
+        git init
+        git branch -m gh-pages
+        git config --global user.email "contact@uncomfyhalomacro.pl"
+        git config --global user.name "uncomfyhalomacro"
+        git remote add origin "https://uncomfyhalomacro:$TOKEN@github.com/uncomfyhalomacro/ssg.git"
+        git add -A
+        git commit -m "update site page"
+        git push --force -u origin gh-pages
+        popd
+        echo "DONE 💕"
+
