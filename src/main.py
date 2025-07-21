@@ -2,9 +2,9 @@ import os
 import shutil
 from shutil import copy2
 
-cwd_of_main_py = os.path.dirname(os.path.realpath(__file__))
-public_path = os.path.realpath(os.path.join(cwd_of_main_py, "../public"))
-static_path = os.path.realpath(os.path.join(cwd_of_main_py, "../static"))
+cwd = os.path.realpath(os.getcwd())
+public_path = os.path.realpath(os.path.join(cwd, "public"))
+static_path = os.path.realpath(os.path.join(cwd, "static"))
 
 def copy_dir_all(src, dst):
     list_contents = os.listdir(src)
