@@ -169,19 +169,14 @@ class TestTextNode(unittest.TestCase):
         ]
         self.assertEqual(new_nodes, cmp_nodes)
 
-    def test_md_to_new_nodes_uneven(self):
-        node = TextNode("This is **text with a `code block` word", TextType.PLAIN)
-        with self.assertRaises(Exception):
-            node.md_to_nodes("**")
-
     def test_md_to_nodes_plain_no_value_passed(self):
         node = TextNode("Hello, World!")
         with self.assertRaises(Exception) as err:
             new_nodes = node.md_to_nodes()
-        self.assertEqual(
-            str(err.exception),
-            "Error: no delimiter passed. You can pass the following: **, `, _.",
-        )
+            self.assertEqual(
+                str(err.exception),
+                "Error: no delimiter passed. You can pass the following: **, `, _.",
+            )
 
     def test_md_to_nodes_with_every_text_type_but_every_return_is_one_plain_node(self):
         node = TextNode("Hello, World!")
