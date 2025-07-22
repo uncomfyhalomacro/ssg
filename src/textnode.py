@@ -2,6 +2,7 @@ import re
 from enum import Enum
 
 from src.leafnode import LeafNode
+from src.htmlnode import VoidNode
 
 
 class TextType(Enum):
@@ -60,7 +61,7 @@ class TextNode:
                 props["alt"] = self.text
             if self.url is not None:
                 props["src"] = self.url
-            return LeafNode("img", "", props)
+            return VoidNode("img", props)
 
     def extract_markdown_links(self):
         return re.findall(TextType.LINK.value, self.text)
@@ -134,8 +135,7 @@ class TextNode:
                 new_nodes.append(plain_new_node)
         if delimiter is None:
             raise Exception(
-                "Error: passing a value not part of the pairs. Value: `text_type`"
-                != "Error: no delimiter passed. You can pass the following: **, `, _."
+                "Error: no delimiter passed. You can pass the following: **, `, _."
             )
 
         return new_nodes
