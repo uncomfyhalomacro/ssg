@@ -88,7 +88,7 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("", TextType.IMAGE)
         html_node = node.to_html_node()
         self.assertEqual(html_node.tag, "img")
-        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.value, None)
         self.assertEqual(html_node.props, {})
 
     def test_img_node_to_html_with_alt_text_and_src(self):
@@ -97,7 +97,7 @@ class TestTextNode(unittest.TestCase):
         )
         html_node = node.to_html_node()
         self.assertEqual(html_node.tag, "img")
-        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.value, None)
         self.assertEqual(
             html_node.props,
             {"src": "https://example.com/beautiful.png", "alt": "Beautiful image"},
@@ -109,7 +109,7 @@ class TestTextNode(unittest.TestCase):
         )
         html_node = node.to_html_node()
         self.assertEqual(html_node.tag, "img")
-        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.value, None)
         # NOTE: Order affects the order of the attributes. Remember LIFO I guess.
         self.assertEqual(
             html_node.props,
@@ -117,7 +117,7 @@ class TestTextNode(unittest.TestCase):
         )
         self.assertEqual(
             html_node.to_html(),
-            """<img alt="Beautiful image" src="https://example.com/beautiful.png"></img>""",
+            '<img alt="Beautiful image" src="https://example.com/beautiful.png">',
         )
 
     def test_plaintext_node_to_html(self):
