@@ -1,5 +1,5 @@
-from src.leafnode import LeafNode
-from src.htmlnode import HTMLNode, VoidNode
+from ssg.leafnode import LeafNode
+from ssg.htmlnode import HTMLNode, VoidNode
 
 
 class ParentNode(HTMLNode):

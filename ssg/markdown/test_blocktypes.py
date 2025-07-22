@@ -1,7 +1,7 @@
 import unittest
 
-from src.markdown.blocks import markdown_to_blocks
-from src.markdown.blocktypes import block_to_block_type, BlockType
+from ssg.markdown.blocks import markdown_to_blocks
+from ssg.markdown.blocktypes import block_to_block_type, BlockType
 
 
 class BlockTypesTest(unittest.TestCase):

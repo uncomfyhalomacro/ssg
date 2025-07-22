@@ -1,5 +1,5 @@
 import unittest
-from src.markdown.export import markdown_to_html_node
+from ssg.markdown.export import markdown_to_html_node
 
 
 class TestExportMarkdownToHtml(unittest.TestCase):

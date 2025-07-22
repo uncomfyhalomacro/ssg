@@ -1,5 +1,5 @@
-from src.markdown.export import markdown_to_block_and_block_types, markdown_to_html_node
-from src.markdown.blocktypes import BlockType
+from ssg.markdown.export import markdown_to_block_and_block_types, markdown_to_html_node
+from ssg.markdown.blocktypes import BlockType
 import os
 
 cwd = os.path.realpath(os.getcwd())

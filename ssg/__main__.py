@@ -2,7 +2,7 @@ import os
 import sys
 import shutil
 from shutil import copyfile
-from src.utils import export_content_to_public
+from ssg.utils import export_content_to_public
 
 cwd = os.path.realpath(os.getcwd())
 public_path = os.path.realpath(os.path.join(cwd, "public"))

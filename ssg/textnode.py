@@ -1,8 +1,8 @@
 import re
 from enum import Enum
 
-from src.leafnode import LeafNode
-from src.htmlnode import VoidNode
+from ssg.leafnode import LeafNode
+from ssg.htmlnode import VoidNode
 
 
 class TextType(Enum):

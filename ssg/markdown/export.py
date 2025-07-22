@@ -1,8 +1,8 @@
-from src.markdown.blocks import markdown_to_blocks
-from src.markdown.blocktypes import BlockType, block_to_block_type
-from src.textnode import TextNode, TextType
-from src.parentnode import ParentNode
-from src.htmlnode import VoidNode
+from ssg.markdown.blocks import markdown_to_blocks
+from ssg.markdown.blocktypes import BlockType, block_to_block_type
+from ssg.textnode import TextNode, TextType
+from ssg.parentnode import ParentNode
+from ssg.htmlnode import VoidNode
 import re
 
 ALL_HEADING_TYPES = [

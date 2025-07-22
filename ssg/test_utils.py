@@ -1,5 +1,5 @@
 import unittest
-from src.utils import extract_title
+from ssg.utils import extract_title
 
 class UtilsTest(unittest.TestCase):
     def test_extract_title(self):
