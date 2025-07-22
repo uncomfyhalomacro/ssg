@@ -1,6 +1,7 @@
 import unittest
 from ssg.utils import extract_title
 
+
 class UtilsTest(unittest.TestCase):
     def test_extract_title(self):
         md = """
@@ -26,6 +27,7 @@ WOAH
 """
         with self.assertRaises(Exception):
             extract_title(md)
+
 
 if __name__ == "__main__":
     unittest.main()

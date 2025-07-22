@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
@@ -34,7 +35,7 @@ HTMLNode(
 class VoidTag(Enum):
     BREAKLINE = "br"
     HORIZONTAL_LINE = "hr"
-    IMAGE="img"
+    IMAGE = "img"
     # TODO: Add more if necessary. For now, these two seems "important". Open a PR if you are interested to add more.
     # NOTE: See also <https://developer.mozilla.org/en-US/docs/Glossary/Void_element>.
 
@@ -50,7 +51,9 @@ class VoidNode(HTMLNode):
             tag = tag.value
         elif isinstance(tag, str):
             if tag not in [vtag.value for vtag in VoidTag]:
-                raise NotImplementedError(f"Error: tag `{tag}` is not yet implemented as a void tag.")
+                raise NotImplementedError(
+                    f"Error: tag `{tag}` is not yet implemented as a void tag."
+                )
 
         super().__init__(tag=tag, props=props)
 
@@ -60,4 +63,3 @@ class VoidNode(HTMLNode):
             f"<{self.tag} {html_attr}>" if html_attr != "" else f"<{self.tag}>"
         )
         return inline_html
-

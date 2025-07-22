@@ -16,7 +16,11 @@ class ParentNode(HTMLNode):
         html_attr = self.props_to_html()
         rendered_children = ""
         for child in self.children:
-            if isinstance(child, LeafNode) or isinstance(child, ParentNode) or isinstance(child, VoidNode):
+            if (
+                isinstance(child, LeafNode)
+                or isinstance(child, ParentNode)
+                or isinstance(child, VoidNode)
+            ):
                 rendered_children += child.to_html()
             else:
                 raise TypeError(

@@ -50,11 +50,16 @@ def transform_markdown_to_html_with_template(markdown_file, basepath=None):
             templ = templ.replace("""href="/""", f"""href="{basepath}""")
             templ = templ.replace("""src="/""", f"""src="{basepath}""")
             return templ
-    raise Exception("Error: unknown error occured. markdown file not transformed to html")
+    raise Exception(
+        "Error: unknown error occured. markdown file not transformed to html"
+    )
+
 
 def export_from_path_of_md_to_html(markdown_file, basepath=None):
     dst = ""
-    parent_dir = os.path.dirname(markdown_file).removeprefix(content_root_path).removeprefix("/")
+    parent_dir = (
+        os.path.dirname(markdown_file).removeprefix(content_root_path).removeprefix("/")
+    )
     if parent_dir == "" or parent_dir == "content":
         dst = os.path.realpath(os.path.join(public_path, "index.html"))
     else:
@@ -66,6 +71,7 @@ def export_from_path_of_md_to_html(markdown_file, basepath=None):
     with open(dst, "w") as f:
         f.write(html)
 
+
 def export_content_to_public(content_root_path=content_root_path, basepath=None):
     list_contents = os.listdir(content_root_path)
     for content in list_contents:
@@ -74,4 +80,3 @@ def export_content_to_public(content_root_path=content_root_path, basepath=None)
             export_from_path_of_md_to_html(current, basepath=basepath)
         if os.path.isdir(current):
             export_content_to_public(current, basepath=basepath)
-
