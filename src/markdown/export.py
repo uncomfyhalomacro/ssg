@@ -2,6 +2,7 @@ from src.markdown.blocks import markdown_to_blocks
 from src.markdown.blocktypes import BlockType, block_to_block_type
 from src.textnode import TextNode, TextType
 from src.parentnode import ParentNode
+from src.htmlnode import VoidNode
 import re
 
 ALL_HEADING_TYPES = [
@@ -89,13 +90,16 @@ def block_heading_to_html_node(block, heading_type):
 
 def block_quote_to_html_node(block):
     parent_tag = "blockquote"
+    children = []
     splits = block.split("\n")
     removed_prefixes = [sp.removeprefix(">").lstrip() for sp in splits]
-    removed_prefixes = [s+"<br />" if s.strip() == "" else s for s in removed_prefixes]
-    new_block = "\n".join(removed_prefixes)
-    tn = TextNode(new_block)
-    tn_nodes = tn.text_to_textnodes()
-    children = [tn_node.to_html_node() for tn_node in tn_nodes]
+    for line in removed_prefixes:
+        if line.strip() == "":
+            children.append(VoidNode("br"))
+        else:
+            tn = TextNode(line)
+            tn_nodes = tn.text_to_textnodes()
+            children += [tn_node.to_html_node() for tn_node in tn_nodes]
     parent_node = ParentNode(parent_tag, children, None)
     return parent_node
 
